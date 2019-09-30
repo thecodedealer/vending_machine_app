@@ -1,0 +1,460 @@
+$bubblegum: #F4ACB7;
+$mint: #84DCC6;
+$cherry: #FF686B;
+$orange: #FF8A5B;
+
+.VendingMachine {
+  *,
+  *:before,
+  *:after{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  position: relative;
+  top: 70px;
+
+  .machine {
+    position: absolute;
+    top: 50px;
+    left: calc(50% - 165px);
+    width: 330px;
+    height: 500px;
+    background-color: $mint;
+    border-radius: 10px;
+    perspective: 300px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      z-index: -1;
+      border-radius: 3px;
+      background-color: rgb(150, 150, 150);
+      width: 30px;
+      height: 40px;
+      top: 150px;
+      right: 10px;
+    }
+
+    &:after {
+      position: absolute;
+      content: "";
+      z-index: -1;
+      border-radius: 3px;
+      background-color: black;
+      width: 26px;
+      height: 15px;
+      top: 152px;
+      right: 12px;
+    }
+  }
+
+  .glass {
+    width: 260px;
+    height: 400px;
+    background: linear-gradient(to bottom right, rgba(150, 200, 255, .2), rgba(150, 200, 255, .7));
+    overflow: hidden;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    border-radius: 5px;
+    z-index: 5;
+
+    &:after {
+      position: absolute;
+      content: "";
+      top: -120px;
+      right: -420px;
+      width: 500px;
+      height: 600px;
+      transform: rotate(-20deg);
+      background: linear-gradient(to bottom, rgba(150, 180, 255, .2), rgba(255, 255, 255, 0));
+    }
+  }
+
+  .inner {
+    width: 260px;
+    height: 400px;
+    background-color: black;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+
+    &:before,
+    &:after {
+      position: absolute;
+      content: "";
+      top: 0;
+      width: 50px;
+      height: 100%;
+      box-shadow: 0 0 100px 30px rgba(255, 230, 150, .9);
+      z-index: 2;
+    }
+
+    &:before {
+      left: -50px;
+      animation: light-flicker 7s infinite;
+    }
+
+    &:after {
+      right: -50px;
+    }
+  }
+
+  @keyframes light-flicker {
+    0%,
+    18%,
+    20%,
+    98%,
+    100% {
+      opacity: 1;
+    }
+
+    99%,
+    19% {
+      opacity: .5;
+    }
+  }
+
+  .tray-inner {
+    width: 260px;
+    height: 50px;
+    background-color: black;
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    border-radius: 5px;
+
+    // Can
+    .container {
+      position: absolute;
+      bottom: -7px;
+      left: 45%;
+      border-color: transparent !important;
+      z-index: 10;
+      animation: shake-can .25s .5s infinite;
+      transform-origin: center -100px;
+
+      .can {
+        transform: rotate(-20deg) scale(.5, .5);
+        opacity: 0;
+        animation: show-can .5s .5s forwards;
+      }
+
+      &.hide {
+        transition: all .5s;
+        opacity: 0;
+      }
+    }
+  }
+
+  @keyframes shake-can {
+    0%,
+    100% {
+      transform: rotate(0);
+    }
+
+    50% {
+      transform: rotate(10deg);
+    }
+  }
+
+  @keyframes show-can {
+    0% {
+      transform: rotate(-20deg) scale(.5, .5);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0) translateY(-100px) rotate(70deg) scale(10, 10);
+      opacity: 1;
+    }
+  }
+
+  .tray {
+    width: 260px;
+    height: 50px;
+    background-color: rgb(180, 180, 180);
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    border-radius: 5px;
+    transform-origin: top center;
+    transform: rotateX(0deg);
+    transition: all .5s;
+    transition-timing-function: cubic-bezier(.6, 0, .4, 1);
+
+    &.open {
+      transform: rotateX(-45deg);
+    }
+
+    &:after {
+      content: "push";
+      position: absolute;
+      top: 28px;
+      left: 0;
+      text-align: center;
+      width: 100%;
+      display: block;
+      opacity: .5;
+      color: black;
+      font-size: 12px;
+    }
+  }
+
+  .shelf {
+    display: block;
+    width: 100%;
+    border-bottom: 5px solid rgb(40, 40, 55);
+
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+
+  // Can
+  .container {
+    float: left;
+    width: 52px;
+    height: 70px;
+    border-width: 0;
+    border-bottom-width: 15px;
+    border-style: solid;
+    position: relative;
+
+    .can-label {
+      position: absolute;
+      bottom: -15px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: white;
+      line-height: 15px;
+      font-size: 10px;
+    }
+
+    .can {
+      position: absolute;
+      bottom: 0;
+      left: calc(50% - 12px);
+      width: 24px;
+      height: 40px;
+      border-radius: 3px;
+      font-family: 'Pacifico', cursive;
+      overflow: hidden;
+
+      &:before {
+        position: absolute;
+        transform-origin: top left;
+        transform: rotate(-90deg);
+        top: 40px;
+        left: -2px;
+        width: 40px;
+        text-align: center;
+        color: white;
+        font-size: 12px;
+      }
+
+      &:after {
+        position: absolute;
+        content: "";
+        right: 3px;
+        top: 3px;
+        width: 3px;
+        height: calc(100% - 6px);
+        background-color: rgba(255, 255, 255, .25);
+        border-radius: 3px;
+      }
+    }
+  }
+
+  .arm {
+    position: absolute;
+    top: 390px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background-color: rgb(200, 200, 200);
+    z-index: 1;
+    transition-timing-function: linear;
+
+    &:after,
+    &:before {
+      position: absolute;
+      content: "";
+      width: 5px;
+      height: 28px;
+      top: -9px;
+      left: 0;
+      background-color: rgb(160, 160, 160);
+    }
+
+    &:after {
+      left: auto;
+      right: 0;
+    }
+
+    .hand {
+      position: absolute;
+      top: -5px;
+      left: 200px;
+      width: 40px;
+      height: 20px;
+      border-radius: 4px;
+      background-color: rgb(160, 160, 160);
+      transition-timing-function: linear;
+
+      &:before,
+      &:after {
+        position: absolute;
+        content: "";
+        width: 6px;
+        height: 30px;
+        top: -5px;
+        border-radius: 2px;
+        background-color: rgb(50, 55, 60);
+        z-index: -1;
+      }
+
+      &:before {
+        left: 4px;
+      }
+
+      &:after {
+        right: 4px;
+      }
+
+      .container {
+        position: absolute;
+        top: -27px;
+        left: -5px;
+        z-index: -2;
+        border-color: transparent !important;
+      }
+    }
+  }
+
+  .numpad {
+    position: absolute;
+    bottom: 20px;
+    left: calc(50% - 145px);
+    width: 290px;
+    background-color: $bubblegum;
+    padding: 10px 20px 0 20px;
+    border-radius: 5px;
+    z-index: 10;
+
+    .currentInput {
+      width: 100%;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      color: white;
+      font-size: 24px;
+      background-color: rgba(255, 255, 255, .15);
+      border-radius: 5px;
+    }
+
+    button {
+      appearance: none;
+      width: 50px;
+      height: 50px;
+
+      background-color: transparent;
+      border: 0;
+      border-radius: 0;
+      color: white;
+      cursor: pointer;
+      outline: 0;
+      font-size: 20px;
+
+      transition: all .25s;
+
+      &.disabled {
+        cursor: not-allowed;
+        opacity: .75;
+        filter: blur(3px);
+      }
+    }
+  }
+
+  [data-can="1"] {
+    border-color: darken($cherry, 10%);
+
+    .can {
+      background-color: $cherry;
+
+      &:before {
+        content: "cherry";
+      }
+    }
+  }
+
+  [data-can="2"] {
+    border-color: darken($orange, 10%);
+
+    .can {
+      background-color: $orange;
+
+      &:before {
+        content: "ginger";
+      }
+    }
+  }
+
+  [data-can="3"] {
+    border-color: rgb(140, 140, 140);
+
+    .can {
+      background-color: rgb(180, 180, 200);
+
+      &:before {
+        content: "mist";
+      }
+    }
+  }
+
+  [data-can="4"] {
+    border-color: rgb(120, 60, 80);
+
+    .can {
+      background-color: rgb(80, 30, 50);
+
+      &:before {
+        content: "berry";
+      }
+    }
+  }
+
+  [data-can="5"] {
+    border-color: darken($mint, 10%);
+
+    .can {
+      background-color: $mint;
+
+      &:before {
+        content: "mint";
+      }
+    }
+  }
+
+  a {
+    font-family: "Pacifico";
+    text-decoration: none;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    color: white;
+    padding: 20px;
+    font-size: 22px;
+    opacity: .25;
+    transition: all .2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+/*GLOBAL CONFIG*/
+export const SET_UP_CONFIG = 'SET_UP_CONFIG'
+
+/*VENDING MACHINE*/
+export const REFRESH_ITEMS = 'REFRESH_ITEMS'
+export const DELETE_ITEM = 'DELETE_ITEM'
+
+/*PURCHASING*/
+export const ADD_MONEY = 'ADD_MONEY'
+export const PURCHASE_ITEM = 'PURCHASE_ITEM'
+export const PAYBACK = 'PAYBACK'
+export const ADD_ORDER = 'ADD_ORDER'
