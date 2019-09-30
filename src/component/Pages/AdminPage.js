@@ -67,6 +67,7 @@ const AdminPage = props => {
         pass: '',
         items: '',
     })
+    const [showOrders, setShowOrders] = useState([])
 
     const ITEMS = [
         {
@@ -125,6 +126,24 @@ const AdminPage = props => {
             )
     }
 
+    useEffect(() => {
+        setShowOrders(
+            appService
+                .transformObjectToArray(orders, 'date', 'desc')
+                .map(order => (
+                    <TableRow>
+                        <TableCell align="right">{order.userId}</TableCell>
+                        <TableCell align="right">{order.product}</TableCell>
+                        <TableCell align="right">{order.stockId}</TableCell>
+                        <TableCell align="right">{order.slotNumber}</TableCell>
+                        <TableCell align="right">
+                            {moment(order.date).format('DD-MM-YYYY | HH:mm')}
+                        </TableCell>
+                    </TableRow>
+                ))
+        )
+    }, [orders])
+
     let stockItems = ''
 
     if (allStocks) {
@@ -158,26 +177,7 @@ const AdminPage = props => {
             .value()
     }
 
-    let elOrders = ''
-
-    if (!!orders) {
-        elOrders = appService
-            .transformObjectToArray(orders, 'date', 'desc')
-            .map(order => (
-                <TableRow>
-                    <TableCell align="right">{order.userId}</TableCell>
-                    <TableCell align="right">{order.product}</TableCell>
-                    <TableCell align="right">{order.stockId}</TableCell>
-                    <TableCell align="right">{order.slotNumber}</TableCell>
-                    <TableCell align="right">
-                        {moment(order.date).format('DD-MM-YYYY | HH:mm')}
-                    </TableCell>
-                </TableRow>
-            ))
-    }
-
     return (
-
         <>
             <Grid container className={classes.root} spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -294,7 +294,7 @@ const AdminPage = props => {
                                     </TableRow>
                                 </TableHead>
 
-                                <TableBody>{elOrders}</TableBody>
+                                <TableBody>{showOrders}</TableBody>
                             </Table>
                         </Paper>
                     </div>

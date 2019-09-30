@@ -4,7 +4,7 @@ import RequestService from '../requestService'
 class AuthClient extends RequestService{
     #request
     #testRequest
-    #baseURL = 'https://vending-app-c1b48.firebaseio.com/'
+    #baseURL = 'https://react-burger-96798.firebaseio.com/'
 
     constructor() {
         super();
@@ -12,15 +12,20 @@ class AuthClient extends RequestService{
         //create new request instance
         this.#request = this.createInstance(this.#baseURL)
 
+        this.#testRequest = this.createInstance('http://localhost:5000/api/auth/')
     }
 
     /*
        ENDPOINTS
      */
-    checkCredentials(POST) {
-        return this.#request.post('admin.json', POST)
+
+    login() {
+        return this.#testRequest.post('login', {user: 'test', pass: 'test123'})
     }
 
+    getIngredients() {
+        return this.#request.get('ingredients.json')
+    }
 }
 
 export default new AuthClient()
