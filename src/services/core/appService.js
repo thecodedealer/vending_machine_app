@@ -70,6 +70,7 @@ class AppService extends AbstractService {
             .map((v, name) => ({ name, ...v }))
             .orderBy(orderBy, orderType)
             .value()
+
     }
 
     /*

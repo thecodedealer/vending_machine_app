@@ -23,7 +23,7 @@ const Loader = props => {
             </div>
         )
 
-    return <>{loader}</>
+    return <React.Fragment>{loader}</React.Fragment>
 }
 
 export default Loader

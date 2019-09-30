@@ -33,7 +33,7 @@ const HomePage = props => {
     }
 
     return (
-        <>
+        <React.Fragment>
             <Container maxWidth="sm">
                 {/*title*/}
                 <Typography variant="h3" align="center" color="textPrimary">
@@ -55,7 +55,7 @@ const HomePage = props => {
                     </Button>
                 </div>
             </Container>
-        </>
+        </React.Fragment>
     )
 }
 

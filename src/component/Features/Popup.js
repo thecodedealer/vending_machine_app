@@ -40,7 +40,7 @@ const Popup = props => {
         if (!!showPopup) triggerAlert(showPopup)
     }, [showPopup])
 
-    return <></>
+    return <React.Fragment></React.Fragment>
 }
 
 export default Popup

@@ -32,13 +32,13 @@ export const refillStock = data => {
     return dispatch => {
         dispatch(commonActions.startLoading())
         configClient
-          .refreshStock(data)
-          .then(res => {
-              console.log('Stock refilled')
-              dispatch(loadConfig())
-          })
-          .catch(e => dispatch(commonActions.openPopup('error', e)))
-          .finally(() => dispatch(commonActions.stopLoading()))
+            .refreshStock(data)
+            .then(res => {
+                console.log('Stock refilled')
+                dispatch(loadConfig())
+            })
+            .catch(e => dispatch(commonActions.openPopup('error', e)))
+            .finally(() => dispatch(commonActions.stopLoading()))
     }
 }
 
@@ -50,19 +50,17 @@ export const resolvePurchase = payload => {
 
         try {
             dispatch(actions.purchaseItem(payload))
-            await configClient.updateItem({
+            const updateItem = await configClient.updateItem({
                 [`${stockId}/${letter}/${letter + number}`]: stockAmount - 1,
             })
-            const POST = {
+
+            const updateOrders = await configClient.updateOrders({
                 date: new Date(),
                 userId,
                 product,
                 stockId,
                 slotNumber: letter + number,
-            }
-            const { data: { name: id } } = await configClient.updateOrders(POST)
-            //add order to current state
-            dispatch(actions.addNewOrder({[id]: POST}))
+            })
         } catch (e) {
             handleError(e)
         } finally {

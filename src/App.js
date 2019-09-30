@@ -2,7 +2,7 @@ import React, { Suspense, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { renderRoutes } from 'react-router-config'
 import { useDispatch } from 'react-redux'
-import './styles/index.scss'
+// import './styles/index.scss'
 
 import { configAsyncActions } from './store/config'
 

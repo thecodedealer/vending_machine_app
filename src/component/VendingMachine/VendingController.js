@@ -66,7 +66,7 @@ const VendingMachine = props => {
     }
 
     return (
-        <>
+        <React.Fragment>
             <Card className={classes.card}>
                 <CardContent>
                     <Typography variant="h5" component="h2">
@@ -122,7 +122,7 @@ const VendingMachine = props => {
                     </List>
                 </CardContent>
             </Card>
-        </>
+        </React.Fragment>
     )
 }
 

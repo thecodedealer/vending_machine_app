@@ -12,14 +12,14 @@ const Layout = props => {
     const isLogin = location.pathname === '/login'
 
     return (
-        <>
+        <React.Fragment>
             <Loader />
             <Popup />
             {isLogin ? null : <Header {...props} />}
             <Container maxWidth="lg">
                 <main>{props.children}</main>
             </Container>
-        </>
+        </React.Fragment>
     )
 }
 

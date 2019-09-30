@@ -40,7 +40,7 @@ const VendingMachine = props => {
         items = appService
             .transformObjectToArray(rest, 'price', 'asc')
             .map(item => (
-                <>
+                <React.Fragment>
                     <ListItem button>
                         <ListItemText
                             primary={`Cola ${item.name.toUpperCase()}`}
@@ -48,7 +48,7 @@ const VendingMachine = props => {
                         />
                     </ListItem>
                     <Divider />
-                </>
+                </React.Fragment>
             ))
     }
 
@@ -63,7 +63,7 @@ const VendingMachine = props => {
     }, [])
 
     return (
-        <>
+        <React.Fragment>
             <div id="vendingMachine">
                 <div className={classes.list}>
                     <h5>PRICES LIST</h5>
@@ -146,7 +146,7 @@ const VendingMachine = props => {
                     <div className="current-input" />
                 </div>
             </div>
-        </>
+        </React.Fragment>
     )
 }
 

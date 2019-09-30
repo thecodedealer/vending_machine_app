@@ -33,10 +33,3 @@ export const resolvePayback = () => {
         type: types.PAYBACK,
     }
 }
-
-export const addNewOrder = payload => {
-    return {
-        type: types.ADD_ORDER,
-        payload: payload,
-    }
-}

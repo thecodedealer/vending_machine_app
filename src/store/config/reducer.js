@@ -27,7 +27,7 @@ const setUpConfig = (state, action) => {
         ...globalConfig,
         stock,
         allStocks,
-        orders,
+        orders: appService.transformObjectToArray(orders, 'date', 'desc'),
         user: {
             id: appService.generateUniqId('user_'),
         },
@@ -80,16 +80,6 @@ const payback = (state, action) => {
     }
 }
 
-const addOrder = (state, action) => {
-    const newOrder = action.payload
-    return {
-        orders: {
-            ...state.orders,
-            ...newOrder,
-        },
-    }
-}
-
 // REDUCER
 const reducer = createReducer(initialState, {
     [types.SET_UP_CONFIG]: setUpConfig,
@@ -99,8 +89,6 @@ const reducer = createReducer(initialState, {
     [types.PURCHASE_ITEM]: purchaseItem,
 
     [types.PAYBACK]: payback,
-
-    [types.ADD_ORDER]: addOrder,
 })
 
 export default reducer

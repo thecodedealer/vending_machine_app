@@ -19,7 +19,6 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
-import appService from '../../services/core/appService'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -67,7 +66,6 @@ const AdminPage = props => {
         pass: '',
         items: '',
     })
-    const [showOrders, setShowOrders] = useState([])
 
     const ITEMS = [
         {
@@ -126,26 +124,7 @@ const AdminPage = props => {
             )
     }
 
-    useEffect(() => {
-        setShowOrders(
-            appService
-                .transformObjectToArray(orders, 'date', 'desc')
-                .map(order => (
-                    <TableRow>
-                        <TableCell align="right">{order.userId}</TableCell>
-                        <TableCell align="right">{order.product}</TableCell>
-                        <TableCell align="right">{order.stockId}</TableCell>
-                        <TableCell align="right">{order.slotNumber}</TableCell>
-                        <TableCell align="right">
-                            {moment(order.date).format('DD-MM-YYYY | HH:mm')}
-                        </TableCell>
-                    </TableRow>
-                ))
-        )
-    }, [orders])
-
     let stockItems = ''
-
     if (allStocks) {
         stockItems = _.chain(allStocks)
             .values()
@@ -178,7 +157,7 @@ const AdminPage = props => {
     }
 
     return (
-        <>
+        <React.Fragment>
             <Grid container className={classes.root} spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <Typography variant="h5" component="h2">
@@ -277,7 +256,8 @@ const AdminPage = props => {
                                 <TableHead>
                                     <TableRow>
                                         <TableCell align="right">
-                                            User id
+                                            {' '}
+                                            User id{' '}
                                         </TableCell>
                                         <TableCell align="right">
                                             Product name
@@ -285,6 +265,7 @@ const AdminPage = props => {
                                         <TableCell align="right">
                                             Stock id
                                         </TableCell>
+
                                         <TableCell align="right">
                                             Slot number
                                         </TableCell>
@@ -294,13 +275,39 @@ const AdminPage = props => {
                                     </TableRow>
                                 </TableHead>
 
-                                <TableBody>{showOrders}</TableBody>
+                                <TableBody>
+                                    {!!orders
+                                        ? orders.map(order => (
+                                              <TableRow>
+                                                  <TableCell align="right">
+                                                      {order.userId}
+                                                  </TableCell>
+                                                  <TableCell align="right">
+                                                      {order.product}
+                                                  </TableCell>
+                                                  <TableCell align="right">
+                                                      {order.stockId}
+                                                  </TableCell>
+                                                  <TableCell align="right">
+                                                      {order.slotNumber}
+                                                  </TableCell>
+                                                  <TableCell align="right">
+                                                      {moment(
+                                                          order.date
+                                                      ).format(
+                                                          'DD-MM-YYYY | HH:mm'
+                                                      )}
+                                                  </TableCell>
+                                              </TableRow>
+                                          ))
+                                        : ''}
+                                </TableBody>
                             </Table>
                         </Paper>
                     </div>
                 </Grid>
             </Grid>
-        </>
+        </React.Fragment>
     )
 }
 

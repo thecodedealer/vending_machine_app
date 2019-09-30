@@ -7,7 +7,7 @@ import { handleError } from '../utils'
 
 
 class ReduxService {
-    #store
+    store
 
     /**
      * CREATE REDUX STORE
@@ -22,7 +22,7 @@ class ReduxService {
                 composeEnhancers = compose
 
             // CREATE REDUX STORE with MIDDLEWARES
-            return this.#store = window.reduxStore = createStore(rootReducer, composeEnhancers(
+            return this.store = window.reduxStore = createStore(rootReducer, composeEnhancers(
                 applyMiddleware(thunk),
             ))
         } catch (e) {
@@ -37,7 +37,7 @@ class ReduxService {
      */
     getState(name) {
         try {
-            let state = this.#store.getState()[name]
+            let state = this.store.getState()[name]
             if (!state)
                 console.trace(`State name ${name} not found!`)
             return state
@@ -52,7 +52,7 @@ class ReduxService {
      */
     dispatch(action) {
         try {
-            this.#store.dispatch(action)
+            this.store.dispatch(action)
         } catch (e) {
             handleError(e)
         }
@@ -74,13 +74,13 @@ class ReduxService {
 
         const handleChange = () => {
             let previousValue = currentValue
-            currentValue = select(this.#store.getState())
+            currentValue = select(this.store.getState())
 
             if (!(currentValue === previousValue)) {
                 cb(currentValue, previousValue)
             }
         }
-        return this.#store.subscribe(handleChange)
+        return this.store.subscribe(handleChange)
     }
 
     /**

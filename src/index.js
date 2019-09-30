@@ -7,8 +7,7 @@ import { Provider } from 'react-redux'
 
 import reduxService from './services/redux/reduxService'
 
-// service worker
-import * as serviceWorker from './serviceWorker'
+
 
 // root component
 import App from './App'
@@ -27,4 +26,3 @@ const target = document.getElementById('root')
 
 ReactDOM.render(app, target)
 
-serviceWorker.register()
